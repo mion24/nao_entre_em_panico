@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nao_entre_em_panico/core/tema/tema.dart';
-import 'package:nao_entre_em_panico/pages/home.dart';
+import 'package:nao_entre_em_panico/pages/home/home.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
