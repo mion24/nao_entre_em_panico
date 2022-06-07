@@ -3,22 +3,22 @@ import 'package:flutter/material.dart';
 ThemeData tema() => ThemeData(
       colorScheme: ColorScheme(
         brightness: Brightness.light,
-        primary: Color.fromARGB(255, 99, 97, 97),
+        primary: Colors.blue,
         onPrimary: Colors.white,
         secondary: Colors.black,
         onSecondary: Colors.white,
         error: Colors.red,
         onError: Colors.white,
-        background: Color.fromARGB(255, 99, 97, 97),
+        background: Colors.blue,
         onBackground: Colors.white,
         surface: Colors.black,
         onSurface: Colors.white,
       ),
       appBarTheme: AppBarTheme(
-        backgroundColor: Color.fromARGB(255, 99, 97, 97),
+        backgroundColor: Colors.blue,
       ),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
-        backgroundColor: Colors.purple,
+        backgroundColor: Colors.grey,
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
