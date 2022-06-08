@@ -18,7 +18,7 @@ ThemeData tema() => ThemeData(
         backgroundColor: Colors.blue,
       ),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
-        backgroundColor: Colors.grey,
+        backgroundColor: Colors.blue.shade400,
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(

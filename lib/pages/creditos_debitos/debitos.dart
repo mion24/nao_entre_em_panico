@@ -1,26 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
-class AddDespesaView extends StatelessWidget {
-  const AddDespesaView({Key? key}) : super(key: key);
+class DebitosView extends StatelessWidget {
+  const DebitosView ({ Key? key }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(items: [
-        BottomNavigationBarItem(icon: Icon(Icons.attach_money), label: 'Crédito'),
-        BottomNavigationBarItem(icon: Icon(Icons.attach_money_outlined), label: 'Débito'),
-      ]),
-      floatingActionButton: FloatingActionButton(child: Icon(Icons.save),
-        onPressed: () {},),
-      appBar: AppBar(
-        title: Text('Adicionar crédito/débito'),
-        centerTitle: true,
-        
-      ),
-      backgroundColor: Colors.lightBlue.shade100,
-      body: Column(
+    return Column(
         children: [
           SizedBox(
             width: 50,
@@ -28,7 +13,7 @@ class AddDespesaView extends StatelessWidget {
             child: Image.network(
                 'https://cdn2.iconfinder.com/data/icons/weather-blue-filled-line/32/weather_Flash_lightning_thunder_bolt_Electricity_storm-512.png'),
           ),
-          Text('Crédito'),
+          Text('Débitos'),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
@@ -51,7 +36,6 @@ class AddDespesaView extends StatelessWidget {
             child: Icon(Icons.calendar_month),
           )
         ],
-      ),
-    );
-  }
+      );
 }
+  }

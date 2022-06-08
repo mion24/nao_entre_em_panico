@@ -3,6 +3,7 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:nao_entre_em_panico/pages/components/card.dart';
 import 'package:nao_entre_em_panico/pages/creditos_debitos/add_despesa.dart';
+import 'package:nao_entre_em_panico/pages/creditos_debitos/add_teste.dart';
 
 class CreditosDebitosView extends StatelessWidget {
   const CreditosDebitosView({Key? key}) : super(key: key);
@@ -12,9 +13,10 @@ class CreditosDebitosView extends StatelessWidget {
     return Scaffold(
         backgroundColor: Colors.blue,
         floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add),
           onPressed: () {
             Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => AddDespesaView()));
+                MaterialPageRoute(builder: (context) => AddTeste()));
           },
         ),
         body: Container(
