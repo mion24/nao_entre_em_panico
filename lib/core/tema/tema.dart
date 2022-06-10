@@ -23,7 +23,7 @@ ThemeData tema() => ThemeData(
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
           backgroundColor:
-              MaterialStateColor.resolveWith((states) => Colors.purple),
+              MaterialStateColor.resolveWith((states) => Colors.blue),
           textStyle: MaterialStateTextStyle.resolveWith(
             (states) => TextStyle(fontSize: 18),
           ),

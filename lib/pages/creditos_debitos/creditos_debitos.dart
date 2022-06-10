@@ -3,7 +3,7 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:nao_entre_em_panico/pages/components/card.dart';
 import 'package:nao_entre_em_panico/pages/creditos_debitos/add_despesa.dart';
-import 'package:nao_entre_em_panico/pages/creditos_debitos/add_teste.dart';
+import 'package:nao_entre_em_panico/pages/creditos_debitos/add_credito_debito.dart';
 
 class CreditosDebitosView extends StatelessWidget {
   const CreditosDebitosView({Key? key}) : super(key: key);

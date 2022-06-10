@@ -33,9 +33,23 @@ class CreditosView extends StatelessWidget {
         Text('Data'),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Icon(Icons.calendar_month),
+          child: IconButton(onPressed: (() async{
+            final dataEscolhida = await showDatePicker(
+                    //await espera o usuario inserir p armazenar na var
+                    //seletor de datas
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(2022),
+                    lastDate: DateTime(2030),
+                  );
+          }), icon: Icon(Icons.calendar_month))
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ElevatedButton(onPressed: () {}, child: Text('Salvar'),),
         )
       ],
+      
     );
   }
 }
