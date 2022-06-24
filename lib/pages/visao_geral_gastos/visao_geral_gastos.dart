@@ -1,25 +1,73 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get_it/get_it.dart';
+import 'package:nao_entre_em_panico/app_store.dart';
 import 'package:nao_entre_em_panico/pages/components/card.dart';
 
-class VisaoGeralGastosView extends StatelessWidget {
+class VisaoGeralGastosView extends StatefulWidget {
   const VisaoGeralGastosView({Key? key}) : super(key: key);
 
   @override
+  State<VisaoGeralGastosView> createState() => _VisaoGeralGastosViewState();
+}
+
+class _VisaoGeralGastosViewState extends State<VisaoGeralGastosView> {
+  @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final appStore = GetIt.I.get<AppStore>();
+
     return Scaffold(
       backgroundColor: Colors.blue,
       body: Column(
         children: [
           Container(
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: TextFormField(
-                  decoration: InputDecoration(
-                    hintText: 'Digite seu nome',
-                    border: OutlineInputBorder(),
-                  ),
-                  textAlign: TextAlign.center),
-            ),
+                padding: const EdgeInsets.all(16.0),
+                child: Visibility(
+                  visible: !_tecladoEstaVisivel(),
+                  child: GestureDetector(onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (_) => SimpleDialog(
+                        title: const Text('Definir nome de usuário'),
+                        backgroundColor: Colors.blue,
+                        titleTextStyle: TextStyle(color: Colors.white),
+                        contentPadding: EdgeInsets.all(16),
+                        children: [
+                          TextFormField(
+                            style: TextStyle(color: Colors.white),
+                            decoration: InputDecoration(hintText: 'Definir nome'),
+                            initialValue: appStore.nome,
+                            onChanged: (String? value) {
+                              appStore.nome = value ?? '';
+                            },
+                          ),
+                          SizedBox(
+                            height: 16,
+                          ),
+                          ElevatedButton(
+                              onPressed: (() {
+                                if (appStore.nome.trim().isNotEmpty) {
+                                  appStore.definirNome(appStore.nome);
+                                } else {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: Text('O texto não pode ser vazio'),
+                                  ));
+                                }
+                              }),
+                              child: Text('Salvar'))
+                        ],
+                      ),
+                    );
+                  }, child: Observer(
+                    builder: (_) {
+                      return Text(
+                          '${appStore.nome.isEmpty ? 'Digite seu nome' : appStore.nome}');
+                    },
+                  )),
+                )),
           ),
           Text('Crédito atual'),
           Padding(
@@ -56,7 +104,14 @@ class VisaoGeralGastosView extends StatelessWidget {
             subT2: '2021: R\$ 0.0',
           ),
         ],
+
+
       ),
     );
+
   }
+
+      bool _tecladoEstaVisivel() {
+        return !(MediaQuery.of(context).viewInsets.bottom == 0);
+      }
 }
