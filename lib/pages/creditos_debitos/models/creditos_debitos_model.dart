@@ -7,7 +7,7 @@ class CreditosDebitosModel {
     this.descricao,
   });
 
-  int? id;
+  String? id;
   DateTime? data;
   double? valor;
   String? tipo;

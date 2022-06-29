@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:nao_entre_em_panico/pages/creditos_debitos/add_despesa_store.dart';
 
 class CreditosView extends StatelessWidget {
   const CreditosView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final store = AddDespesaStore();
     return Column(
       children: [
         SizedBox(
@@ -17,6 +19,7 @@ class CreditosView extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: TextFormField(
+            controller: store.controllerValor,
             decoration: InputDecoration(
               hintText: 'Valor',
             ),
@@ -25,6 +28,7 @@ class CreditosView extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: TextFormField(
+            controller: store.controllerDescricao,
             decoration: InputDecoration(
               hintText: 'Descrição',
             ),
@@ -32,9 +36,10 @@ class CreditosView extends StatelessWidget {
         ),
         Text('Data'),
         Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: IconButton(onPressed: (() async{
-            final dataEscolhida = await showDatePicker(
+            padding: const EdgeInsets.all(8.0),
+            child: IconButton(
+                onPressed: (() async {
+                  final dataEscolhida = await showDatePicker(
                     //await espera o usuario inserir p armazenar na var
                     //seletor de datas
                     context: context,
@@ -42,14 +47,21 @@ class CreditosView extends StatelessWidget {
                     firstDate: DateTime(2022),
                     lastDate: DateTime(2030),
                   );
-          }), icon: Icon(Icons.calendar_month))
-        ),
+                  store.data = dataEscolhida;
+                }),
+                icon: Icon(Icons.calendar_month))),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: ElevatedButton(onPressed: () {}, child: Text('Salvar'),),
+          child: ElevatedButton(
+            onPressed: () async{
+              await store.salvar();
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text('Lançamento salvo !')));
+            },
+            child: Text('Salvar'),
+          ),
         )
       ],
-      
     );
   }
 }

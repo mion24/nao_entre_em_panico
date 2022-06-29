@@ -2,7 +2,7 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:nao_entre_em_panico/pages/components/card.dart';
-import 'package:nao_entre_em_panico/pages/creditos_debitos/add_despesa.dart';
+
 import 'package:nao_entre_em_panico/pages/creditos_debitos/add_credito_debito.dart';
 
 class CreditosDebitosView extends StatelessWidget {
@@ -15,8 +15,8 @@ class CreditosDebitosView extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
           onPressed: () {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => AddTeste()));
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => AddTeste()));
           },
         ),
         body: Container(

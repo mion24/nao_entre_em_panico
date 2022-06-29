@@ -15,16 +15,13 @@ class CreditosDebitosRepositorio {
 ''';
 
       final db = await BancoSQLite().obterConexao();
-      db.rawInsert(
-        sql,
-        [
-          model.id,
-          model.data,
-          model.valor,
-          model.tipo,
-          model.descricao,
-        ]
-      );
+      db.rawInsert(sql, [
+        model.id,
+        model.data,
+        model.valor,
+        model.tipo,
+        model.descricao,
+      ]);
     } catch (e) {
       print('error');
     }

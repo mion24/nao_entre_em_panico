@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:nao_entre_em_panico/pages/creditos_debitos/add_despesa_store.dart';
 
 class DebitosView extends StatelessWidget {
   const DebitosView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final store = AddDespesaStore();
+
     return Column(
       children: [
         SizedBox(
@@ -17,6 +20,7 @@ class DebitosView extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: TextFormField(
+            controller: store.controllerValor,
             decoration: InputDecoration(
               hintText: 'Valor',
             ),
@@ -25,6 +29,7 @@ class DebitosView extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: TextFormField(
+            controller: store.controllerDescricao,
             decoration: InputDecoration(
               hintText: 'Descrição',
             ),
@@ -43,12 +48,17 @@ class DebitosView extends StatelessWidget {
                     firstDate: DateTime(2022),
                     lastDate: DateTime(2030),
                   );
+                  store.data = dataEscolhida;
                 }),
                 icon: Icon(Icons.calendar_month))),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () async {
+              await store.salvar();
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text('Lançamento salvo !')));
+            },
             child: Text('Salvar'),
           ),
         )
