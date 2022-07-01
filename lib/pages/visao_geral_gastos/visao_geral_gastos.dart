@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:nao_entre_em_panico/app_store.dart';
+import 'package:nao_entre_em_panico/core/helpers/converte_data.dart';
 import 'package:nao_entre_em_panico/pages/components/card.dart';
+import 'package:nao_entre_em_panico/pages/creditos_debitos/add_despesa_store.dart';
+import 'package:nao_entre_em_panico/pages/visao_geral_gastos/visao_geral_gastos_store.dart';
 
 class VisaoGeralGastosView extends StatefulWidget {
   const VisaoGeralGastosView({Key? key}) : super(key: key);
@@ -16,6 +19,9 @@ class _VisaoGeralGastosViewState extends State<VisaoGeralGastosView> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final appStore = GetIt.I.get<AppStore>();
+    final store = GetIt.I.get<VisaoGeralGastosStore>();
+    final dataHoje = DateTime.now();
+    store.atualizaValores();
 
     return Scaffold(
       backgroundColor: Colors.blue,
@@ -37,7 +43,8 @@ class _VisaoGeralGastosViewState extends State<VisaoGeralGastosView> {
                         children: [
                           TextFormField(
                             style: TextStyle(color: Colors.white),
-                            decoration: InputDecoration(hintText: 'Definir nome'),
+                            decoration:
+                                InputDecoration(hintText: 'Definir nome'),
                             initialValue: appStore.nome,
                             onChanged: (String? value) {
                               appStore.nome = value ?? '';
@@ -71,15 +78,18 @@ class _VisaoGeralGastosViewState extends State<VisaoGeralGastosView> {
           ),
           Text('Crédito atual'),
           Padding(
-            padding: const EdgeInsets.all(6.0),
-            child: Text(
-              'R\$ 0.0',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.red,
-              ),
-            ),
-          ),
+              padding: const EdgeInsets.all(6.0),
+              child: Observer(
+                builder: (_) {
+                  return Text(
+                    'R\$ ${store.creditoRestante}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red,
+                    ),
+                  );
+                },
+              )),
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: Container(
@@ -91,27 +101,30 @@ class _VisaoGeralGastosViewState extends State<VisaoGeralGastosView> {
           ),
           CardView(
             titulo: 'Dia',
-            subT1: 'Hoje: R\$ 0.0',
-            subT2: 'Ontem: R\$ 0.0',
+            subT1: 'Hoje: R\$ ${store.valorDia}',
+            subT2: 'Ontem: R\$ ${store.valorDiaAnterior}',
           ),
-          CardView(
+          Observer(builder: (_) {
+             return CardView(
               titulo: 'Mês',
-              subT1: '03-2022: R\$ 0.0',
-              subT2: '02-2022: R\$ 0.0'),
-          CardView(
-            titulo: 'Ano',
-            subT1: '2022: R\$ 0.0',
-            subT2: '2021: R\$ 0.0',
+              subT1: '${ConverteData.mesAno(dataHoje)}: R\$ ${store.valorMes}',
+              subT2: '${ConverteData.mesAno(DateTime(dataHoje.year, dataHoje.month -1, dataHoje.day))}: R\$ ${store.valorMesAnterior}');
+          },
           ),
+          Observer(builder: (_) {
+             return CardView(
+            titulo: 'Ano',
+            subT1: '${DateTime.now().year}: R\$ ${store.valorAno}',
+            subT2: '${DateTime.now().year - 1}: R\$ ${store.valorAnoAnterior}',
+          );
+          },
+          )
         ],
-
-
       ),
     );
-
   }
 
-      bool _tecladoEstaVisivel() {
-        return !(MediaQuery.of(context).viewInsets.bottom == 0);
-      }
+  bool _tecladoEstaVisivel() {
+    return !(MediaQuery.of(context).viewInsets.bottom == 0);
+  }
 }

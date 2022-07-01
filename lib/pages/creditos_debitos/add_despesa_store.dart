@@ -14,7 +14,7 @@ abstract class _AddDespesaStoreBase with Store {
 _AddDespesaStoreBase() {
   id = const Uuid().v4();  //gera o guide
   data = DateTime.now();
-  tipo = index == 0 ? 'Débito' : 'Débito';
+  tipo = index == 0 ? 'Débito' : 'Crédito';
   controllerValor.addListener(() {
     if(controllerValor.text.isNotEmpty) {
       valor = double.tryParse(controllerValor.text);

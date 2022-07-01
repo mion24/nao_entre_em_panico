@@ -7,6 +7,7 @@ class CreditosView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final store = AddDespesaStore();
+    store.tipo = 'Crédito';
     return Column(
       children: [
         SizedBox(
