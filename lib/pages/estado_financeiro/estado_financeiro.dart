@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:nao_entre_em_panico/pages/components/card.dart';
+
+import '../../core/helpers/converte_data.dart';
+import '../creditos_debitos/view/creditos_debitos_store.dart';
+import 'estado_financeiro_store.dart';
 
 class EstadoFinanceiroView extends StatelessWidget {
   const EstadoFinanceiroView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final store = GetIt.I.get<EstadoFinanceiroStore>();
+    store.atualizaValores();
+    store.atualizaValoresDebito();
+    final dataHoje = DateTime.now();
+
     return Container(
       color: Colors.blue,
       alignment: Alignment.center,
@@ -20,18 +30,24 @@ class EstadoFinanceiroView extends StatelessWidget {
           ),
           CardView(
             titulo: 'Dia',
-            subT1: 'Hoje: Superávit(r\$ 0.0)',
-            subT2: 'Ontem: Superávit(r\$ 0.0)',
+            subT1:
+                'Hoje: Superávit: R\$ ${store.valorDia - store.valorDiaDebito}',
+            subT2:
+                'Ontem: Superávit: R\$ ${store.valorDiaAnterior - store.valorDiaAnteriorDebito}',
           ),
           CardView(
             titulo: 'Mês',
-            subT1: '03-2022: Superávit(r\$ 0.0)',
-            subT2: '04-2022: Superávit(r\$ 0.0)',
+            subT1:
+                '${ConverteData.mesAno(dataHoje)}: Superávit : R\$ ${store.valorMes - store.valorMesDebito}',
+            subT2:
+                '${ConverteData.mesAno(DateTime(dataHoje.year, dataHoje.month - 1, dataHoje.day))}: Superávit: R\$ ${store.valorMes - store.valorMesAntDebito}',
           ),
           CardView(
             titulo: 'Ano',
-            subT1: '2022: Superávit(r\$ 0.0)',
-            subT2: '2021: Superávit(r\$ 0.0)',
+            subT1:
+                '${DateTime.now().year}: Superávit: R\$ ${store.valorAno - store.valorAnoDebito}',
+            subT2:
+                '${DateTime.now().year - 1}: Superávit: R\$ ${store.valorAnoAnterior - store.valorAnoAnteriorDebito}',
           ),
         ],
       ),

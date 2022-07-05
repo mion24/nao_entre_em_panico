@@ -54,7 +54,7 @@ class CreditosView extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: ElevatedButton(
-            onPressed: () async{
+            onPressed: () async {
               await store.salvar();
               ScaffoldMessenger.of(context)
                   .showSnackBar(SnackBar(content: Text('Lançamento salvo !')));
